@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purify — Enterprise AI Orchestration, On-Premise</title>
+<meta name="description" content="Self-hosted AI orchestration for South African enterprises: multi-version Active Directory sign-in, read-only SAP connectors, human-approved actions. Nothing leaves your LAN.">
+<style>
+:root{--bg:#0a0f18;--card:#111a29;--br:#1e2a3d;--ac:#4da3ff;--ac2:#3ddc84;--txt:#e6ebf2;--mut:#8fa1b8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.6 system-ui,Segoe UI,Roboto,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--br);position:sticky;top:0;background:rgba(10,15,24,.95);backdrop-filter:blur(6px);z-index:5}
+header b{color:var(--ac);letter-spacing:.14em;font-size:15px}
+header span{color:var(--mut);font-size:12px}
+main{max-width:1060px;margin:0 auto;padding:26px 20px 70px}
+.hero{text-align:center;padding:52px 10px 30px}
+.hero h1{font-size:clamp(28px,5vw,46px);margin:0 0 14px;line-height:1.15}
+.hero h1 em{color:var(--ac);font-style:normal}
+.hero p{color:var(--mut);max-width:720px;margin:0 auto 22px;font-size:17px}
+.btn{display:inline-block;background:var(--ac);color:#06101c;font-weight:700;border-radius:10px;padding:12px 22px;text-decoration:none;margin:4px}
+.btn.g{background:transparent;color:var(--txt);border:1px solid var(--br)}
+.badges{margin-top:18px;color:var(--mut);font-size:13px}
+h2{color:var(--ac);font-size:15px;letter-spacing:.1em;text-transform:uppercase;margin:44px 0 14px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:18px}
+.card h3{margin:0 0 8px;font-size:15px;color:var(--txt)}
+.card p{margin:0;color:var(--mut);font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+th,td{border:1px solid var(--br);padding:8px 10px;text-align:left;color:var(--mut)}
+th{color:var(--ac)}
+pre{background:#0b111c;border:1px solid var(--br);border-radius:12px;padding:14px;overflow:auto;font-size:13px;color:#b8d4ff}
+.foot{border-top:1px solid var(--br);margin-top:50px;padding:22px;text-align:center;color:var(--mut);font-size:13px}
+svg{width:100%;height:auto;background:#0b111c;border:1px solid var(--br);border-radius:14px}
+</style>
+</head>
+<body>
+<header><b>PURIFY</b><span>enterprise AI orchestration · on-premise</span></header>
+<main>
+<section class="hero">
+<h1>Your AI stays <em>inside your walls</em>.<br>Your AD stays in charge.</h1>
+<p>Purify is a self-hosted AI orchestration platform for South African enterprises: staff sign in with the Windows accounts they already have, the AI reads SAP through a strictly read-only connector, and every proposed action waits for a named human approval. POPIA-friendly by architecture — nothing leaves your LAN.</p>
+<a class="btn" href="mailto:1109ruwayne@gmail.com?subject=Purify%20on-premise%20demo%20request">Request an on-prem demo</a>
+<a class="btn g" href="#architecture">See the architecture</a>
+<div class="badges">Windows Server 2012 R2 → 2022 AD · Samba 4 · OpenLDAP / FreeIPA · LDAPS / StartTLS · local Ollama or hybrid cloud</div>
+</section>
+
+<h2>What your IT manager will ask — answered</h2>
+<div class="grid">
+<div class="card"><h3>Multi-version directory sign-in</h3><p>Pick your exact environment: Windows Server 2016/2019/2022, legacy 2012 R2 with NetBIOS binds, Samba 4 AD, or OpenLDAP/FreeIPA. UPN, DOMAIN\user or sAMAccountName — all accepted.</p></div>
+<div class="card"><h3>AD groups = Purify roles</h3><p>Map CN=Purify-Admins and CN=Purify-Operators to admin/operator/viewer. Staff are provisioned and role-synced automatically at login. Local break-glass accounts keep IT un-lockout-able.</p></div>
+<div class="card"><h3>Read-only SAP, by construction</h3><p>The SAP module contains no write path at all. Per-connector entity allow-lists, https enforced, filter shape-checks. Plant-network http only behind an explicit flag on private LANs.</p></div>
+<div class="card"><h3>Human-in-the-loop writes</h3><p>The AI can propose changes; only an approved human decision executes them. Every proposal, decision, login and config change lands in a tamper-evident audit log.</p></div>
+<div class="card"><h3>Secrets encrypted at rest</h3><p>Service-account and connector passwords are Fernet-encrypted under a master key that lives only in the server environment. Empty-password anonymous binds are blocked.</p></div>
+<div class="card"><h3>Multi-specialist orchestration</h3><p>Nine domain specialists (strategy, supply chain, manufacturing, finance, HR, POPIA/legal, IT security…) plus an executive coordinator — on local Ollama, optional cloud hybrids.</p></div>
+</div>
+
+<h2 id="architecture">Architecture at a glance</h2>
+<svg viewBox="0 0 900 300" role="img" aria-label="Purify architecture diagram">
+<rect x="20" y="30" width="200" height="70" rx="10" fill="#14202f" stroke="#4da3ff"/>
+<text x="120" y="60" fill="#e6ebf2" font-size="14" text-anchor="middle">Active Directory / LDAP</text>
+<text x="120" y="80" fill="#8fa1b8" font-size="11" text-anchor="middle">2012 R2 → 2022 · Samba · FreeIPA</text>
+<rect x="20" y="190" width="200" height="70" rx="10" fill="#14202f" stroke="#3ddc84"/>
+<text x="120" y="220" fill="#e6ebf2" font-size="14" text-anchor="middle">SAP (OData)</text>
+<text x="120" y="240" fill="#8fa1b8" font-size="11" text-anchor="middle">READ-ONLY allow-listed entities</text>
+<rect x="330" y="100" width="240" height="100" rx="12" fill="#18263a" stroke="#4da3ff" stroke-width="2"/>
+<text x="450" y="135" fill="#4da3ff" font-size="16" text-anchor="middle" font-weight="bold">PURIFY CORE</text>
+<text x="450" y="158" fill="#e6ebf2" font-size="11" text-anchor="middle">FastAPI · PostgreSQL · encrypted secrets</text>
+<text x="450" y="176" fill="#8fa1b8" font-size="11" text-anchor="middle">multi-specialist orchestrator (Ollama/cloud)</text>
+<rect x="680" y="30" width="200" height="70" rx="10" fill="#14202f" stroke="#8fa1b8"/>
+<text x="780" y="60" fill="#e6ebf2" font-size="14" text-anchor="middle">Staff web dashboard</text>
+<text x="780" y="80" fill="#8fa1b8" font-size="11" text-anchor="middle">AD sign-in · jobs · docs</text>
+<rect x="680" y="190" width="200" height="70" rx="10" fill="#14202f" stroke="#ff6b6b"/>
+<text x="780" y="220" fill="#e6ebf2" font-size="14" text-anchor="middle">Approval queue</text>
+<text x="780" y="240" fill="#8fa1b8" font-size="11" text-anchor="middle">humans decide every write</text>
+<line x1="220" y1="65" x2="330" y2="130" stroke="#4da3ff" stroke-width="2"/>
+<line x1="220" y1="225" x2="330" y2="170" stroke="#3ddc84" stroke-width="2"/>
+<line x1="570" y1="130" x2="680" y2="65" stroke="#8fa1b8" stroke-width="2"/>
+<line x1="570" y1="170" x2="680" y2="225" stroke="#ff6b6b" stroke-width="2"/>
+<text x="255" y="90" fill="#4da3ff" font-size="10">LDAPS bind</text>
+<text x="245" y="205" fill="#3ddc84" font-size="10">GET only</text>
+<text x="600" y="90" fill="#8fa1b8" font-size="10">bearer sessions</text>
+<text x="595" y="205" fill="#ff6b6b" font-size="10">propose → decide</text>
+</svg>
+
+<h2>Directory versions supported</h2>
+<table>
+<tr><th>Version key</th><th>Environment</th><th>Login forms accepted</th></tr>
+<tr><td>windows_ad_2016_2022</td><td>Windows Server 2016 / 2019 / 2022 AD</td><td>user@corp.co.za · CORP\user · sAMAccountName</td></tr>
+<tr><td>windows_ad_2012_r2</td><td>Legacy 2012 / 2012 R2 (older TLS, NetBIOS binds)</td><td>same, plus NetBIOS-era binds</td></tr>
+<tr><td>samba_ad</td><td>Samba 4 AD domain controller on Linux</td><td>same AD schema</td></tr>
+<tr><td>openldap_freeipa</td><td>OpenLDAP / Red Hat FreeIPA</td><td>uid · mail (inetOrgPerson/posixAccount)</td></tr>
+<tr><td>local_only</td><td>Purify local accounts + break-glass fallback</td><td>email</td></tr>
+</table>
+
+<h2>Deploy in your LAN</h2>
+<pre>cp .env.example .env        # set PURIFY_MASTER_KEY
+docker compose up -d --build
+# open http://&lt;server&gt;:8000 → first-run bootstrap → AD config → SAP connectors → go</pre>
+
+<div class="foot">Purify Enterprise On-Premise · © 2026 Ruwayne Campher · Gqeberha, South Africa<br>
+Demo &amp; licensing: <a href="mailto:1109ruwayne@gmail.com?subject=Purify%20on-premise%20demo%20request" style="color:var(--ac)">1109ruwayne@gmail.com</a> · Phone/WhatsApp 074 430 0150<br>
+Sister product: <a href="https://my-ai-pro-rkxe.onrender.com" style="color:var(--mut)">Smash AI Pro studio</a></div>
+</main>
+</body>
+</html>
